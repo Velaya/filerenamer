@@ -1,4 +1,4 @@
-# Pythono3 code to rename multiple
+# Python3 code to rename multiple
 # files in a directory or folder
 import glob
 import os
@@ -20,8 +20,8 @@ def main():
 	source_file = config["FILE"]["SOURCE_FILE"]
 	log_file = config["LOGGING"]["LOG_FILE"]
 	log_level = logging.getLevelName(config["LOGGING"]["LOG_LEVEL"])
-	# regex = re.compile(config["FILE"]["REGEX"])
-	regex = re.compile(r"(.*-.*-.*-)(.*?-.\d*)(.*)")
+	regex = re.compile(config["FILE"]["REGEX"])
+	# regex = re.compile(r"(.*-.*-.*-)(.*?-.\d*)(.*)")
 
 	# logger
 	logger = logging.getLogger('filefinder')
@@ -47,19 +47,13 @@ def main():
 				# logger.debug(row.ImageTitleOld)
 				if f == row.ImageTitleOld:
 					match = re.search(regex, f)
-					newname = str(match.group(1)) + str(row.AccessionNumber).replace('SMNS_DIP_', '') + str(match.group(3))
+					newname = (
+						str(match[1])
+						+ str(row.AccessionNumber).replace('SMNS_DIP_', '')
+						+ str(match[3])
+					)
 					os.rename(f, newname)
 					logger.info('Renamed ' + f + ' to ' + newname)
-
-
-# for count, filename in enumerate(os.listdir("xyz")):
-#	dst = "Hostel" + str(count) + ".jpg"
-#	src = 'xyz' + filename
-#	dst = 'xyz' + dst
-#
-#		# rename() function will
-#		# rename all the files
-#		os.rename(src, dst)
 
 
 if __name__ == '__main__':

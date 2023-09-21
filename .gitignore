@@ -1,2 +1,6 @@
 /venv/
 .idea
+*.jpg
+*.JPG
+*.xlsx
+filerenamer_log.txt
